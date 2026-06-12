@@ -34,7 +34,7 @@
 
   /* ===== NAV ===== */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     background: rgba(255,255,255,0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(45,106,79,0.12);
@@ -79,23 +79,25 @@
     content: '';
     position: absolute; inset: 0;
     background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none; /* ป้องกันไม่ให้บังการคลิก */
   }
+  .hero-badge, .hero h1, .hero p, .hero-btns, .hero-features { position: relative; z-index: 2; }
   .hero-badge {
     background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
     border-radius: 24px; padding: 6px 18px; font-size: 0.85rem; margin-bottom: 20px;
-    letter-spacing: 0.05em; position: relative;
+    letter-spacing: 0.05em;
   }
   .hero h1 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 800;
-    line-height: 1.15; margin-bottom: 16px; position: relative;
+    line-height: 1.15; margin-bottom: 16px;
   }
   .hero h1 span { color: var(--gold-light); }
   .hero p {
     font-size: 1.1rem; opacity: 0.88; max-width: 520px;
-    line-height: 1.7; margin-bottom: 36px; position: relative;
+    line-height: 1.7; margin-bottom: 36px;
   }
-  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; position: relative; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
   .btn-primary {
     background: var(--gold); color: white; border: none; cursor: pointer;
     font-family: 'Sarabun', sans-serif; font-size: 1rem; font-weight: 700;
@@ -110,10 +112,7 @@
   }
   .btn-outline:hover { background: rgba(255,255,255,0.12); border-color: white; }
 
-  .hero-features {
-    display: flex; gap: 28px; margin-top: 52px; flex-wrap: wrap; justify-content: center;
-    position: relative;
-  }
+  .hero-features { display: flex; gap: 28px; margin-top: 52px; flex-wrap: wrap; justify-content: center; }
   .hero-feat {
     display: flex; align-items: center; gap: 8px;
     background: rgba(255,255,255,0.1); border-radius: 12px; padding: 10px 18px;
@@ -165,9 +164,7 @@
     font-family: 'Sarabun', sans-serif; font-size: 0.95rem; color: var(--dark);
     transition: border-color 0.2s; background: white; outline: none;
   }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-    border-color: var(--jade);
-  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--jade); }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .submit-btn {
     width: 100%; background: var(--jade); color: white; border: none; cursor: pointer;
@@ -186,17 +183,14 @@
   .info-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; font-size: 0.9rem; }
   .info-item .dot { color: var(--gold); font-size: 1.1rem; flex-shrink: 0; }
 
-  /* price compare */
   .price-compare { display: flex; flex-direction: column; gap: 10px; }
   .price-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-radius: 8px; font-size: 0.9rem; }
   .price-row.ours { background: var(--jade); color: white; font-weight: 700; }
   .price-row.other { background: #f5f5f5; color: var(--muted); }
   .price-row .name { font-weight: 600; }
 
-  /* ===== BOOKINGS LIST ===== */
-  .bookings-header {
-    display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
-  }
+  /* ===== ADMIN ===== */
+  .bookings-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
   .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 32px; }
   .stat-card {
     background: white; border-radius: var(--radius); padding: 22px;
@@ -206,49 +200,33 @@
   .stat-card .label { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
 
   .booking-table { width: 100%; border-collapse: collapse; }
-  .booking-table th {
-    background: var(--jade); color: white;
-    text-align: left; padding: 12px 16px; font-size: 0.85rem; font-weight: 600;
-  }
+  .booking-table th { background: var(--jade); color: white; text-align: left; padding: 12px 16px; font-size: 0.85rem; font-weight: 600; }
   .booking-table th:first-child { border-radius: 8px 0 0 0; }
   .booking-table th:last-child { border-radius: 0 8px 0 0; }
   .booking-table td { padding: 12px 16px; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
   .booking-table tr:hover td { background: var(--jade-pale); }
-  .status-badge {
-    display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
-  }
-  .status-badge.pending { background: #fff3cd; color: #856404; }
-  .status-badge.confirmed { background: #d1e7dd; color: #0a3622; }
-  .status-badge.done { background: #cff4fc; color: #0c5460; }
 
   /* ===== AI CHAT ===== */
   .chat-layout { display: grid; grid-template-columns: 300px 1fr; gap: 24px; align-items: start; }
   @media (max-width: 750px) { .chat-layout { grid-template-columns: 1fr; } }
   .chat-sidebar { display: flex; flex-direction: column; gap: 14px; }
-  .chat-tip {
-    background: white; border-radius: var(--radius); padding: 20px;
-    box-shadow: var(--shadow);
-  }
+  .chat-tip { background: white; border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
   .chat-tip h4 { font-size: 0.9rem; font-weight: 700; color: var(--jade); margin-bottom: 10px; }
   .prompt-chip {
     display: block; width: 100%; text-align: left;
-    background: var(--jade-pale); color: var(--jade);
-    border: none; cursor: pointer; border-radius: 8px; padding: 9px 14px;
-    font-family: 'Sarabun', sans-serif; font-size: 0.85rem; font-weight: 500;
-    margin-bottom: 7px; transition: all 0.2s;
+    background: var(--jade-pale); color: var(--jade); border: none; cursor: pointer;
+    border-radius: 8px; padding: 9px 14px; font-family: 'Sarabun', sans-serif;
+    font-size: 0.85rem; font-weight: 500; margin-bottom: 7px; transition: all 0.2s;
   }
   .prompt-chip:hover { background: var(--jade); color: white; }
-  .prompt-chip:last-child { margin-bottom: 0; }
 
   .chat-window {
     background: white; border-radius: var(--radius); padding: 0;
     box-shadow: var(--shadow-lg); display: flex; flex-direction: column; height: 580px;
   }
   .chat-header {
-    padding: 18px 22px; border-bottom: 1px solid #f0f0f0;
-    display: flex; align-items: center; gap: 12px;
-    background: linear-gradient(135deg, var(--jade), #40916c);
-    border-radius: var(--radius) var(--radius) 0 0; color: white;
+    padding: 18px 22px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 12px;
+    background: linear-gradient(135deg, var(--jade), #40916c); border-radius: var(--radius) var(--radius) 0 0; color: white;
   }
   .chat-avatar { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
   .chat-header-info h3 { font-size: 1rem; font-weight: 700; }
@@ -256,18 +234,13 @@
   .online-dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; display: inline-block; margin-left: 6px; animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
 
-  .chat-messages {
-    flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px;
-  }
+  .chat-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
   .chat-messages::-webkit-scrollbar { width: 4px; }
   .chat-messages::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
 
   .msg { display: flex; gap: 10px; max-width: 80%; }
   .msg.user { flex-direction: row-reverse; align-self: flex-end; }
-  .msg-bubble {
-    padding: 11px 16px; border-radius: 18px;
-    font-size: 0.92rem; line-height: 1.6;
-  }
+  .msg-bubble { padding: 11px 16px; border-radius: 18px; font-size: 0.92rem; line-height: 1.6; }
   .msg.bot .msg-bubble { background: #f4f6f4; color: var(--dark); border-radius: 4px 18px 18px 18px; }
   .msg.user .msg-bubble { background: var(--jade); color: white; border-radius: 18px 4px 18px 18px; }
   .msg-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
@@ -281,8 +254,7 @@
   @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
 
   .chat-input-area {
-    padding: 14px 16px; border-top: 1px solid #f0f0f0;
-    display: flex; gap: 10px; align-items: flex-end;
+    padding: 14px 16px; border-top: 1px solid #f0f0f0; display: flex; gap: 10px; align-items: flex-end;
   }
   .chat-input {
     flex: 1; border: 2px solid #e8e8e8; border-radius: 24px; padding: 10px 18px;
@@ -293,29 +265,14 @@
   .send-btn {
     background: var(--jade); color: white; border: none; cursor: pointer;
     width: 44px; height: 44px; border-radius: 50%; font-size: 1.1rem;
-    display: flex; align-items: center; justify-content: center; transition: all 0.2s;
-    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0;
   }
   .send-btn:hover { background: var(--jade-light); transform: scale(1.05); }
   .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-  /* ===== ADMIN ===== */
-  .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 36px; }
-  .admin-card {
-    background: white; border-radius: var(--radius); padding: 24px;
-    box-shadow: var(--shadow); display: flex; align-items: center; gap: 16px;
-  }
-  .admin-card-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; }
-  .admin-card-icon.green { background: var(--jade-pale); }
-  .admin-card-icon.gold { background: #fef9e7; }
-  .admin-card-icon.blue { background: #e8f4fd; }
-  .admin-card-icon.red { background: #fdecea; }
-  .admin-card-info .num { font-size: 1.8rem; font-weight: 800; color: var(--dark); }
-  .admin-card-info .label { font-size: 0.85rem; color: var(--muted); }
-
   /* ===== TOAST ===== */
   .toast {
-    position: fixed; bottom: 24px; right: 24px; z-index: 999;
+    position: fixed; bottom: 24px; right: 24px; z-index: 9999;
     background: var(--jade); color: white; padding: 14px 22px; border-radius: 12px;
     font-size: 0.95rem; font-weight: 600; box-shadow: var(--shadow-lg);
     animation: slideUp 0.3s ease; display: none;
@@ -323,11 +280,7 @@
   @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
   /* ===== FOOTER ===== */
-  footer {
-    background: var(--jade); color: rgba(255,255,255,0.85);
-    text-align: center; padding: 32px 24px;
-    font-size: 0.9rem;
-  }
+  footer { background: var(--jade); color: rgba(255,255,255,0.85); text-align: center; padding: 32px 24px; font-size: 0.9rem; }
   footer strong { color: white; }
 
   /* ===== RESPONSIVE ===== */
@@ -609,7 +562,6 @@
       <h3 style="font-size:1.1rem;font-weight:700;color:var(--jade);">รายการจองทั้งหมด</h3>
       <div style="display:flex;gap:10px;">
         <button class="btn-primary" style="padding:9px 18px;font-size:0.88rem;" onclick="addSampleBooking()">+ เพิ่มตัวอย่าง</button>
-        <button class="btn-outline" style="padding:9px 18px;font-size:0.88rem;color:var(--jade);border-color:var(--jade);" onclick="exportCSV()">⬇ Export CSV</button>
       </div>
     </div>
 
@@ -636,6 +588,9 @@
 <div class="toast" id="toast"></div>
 
 <script>
+// URL ของ Google Apps Script ของคุณ
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzGewMRhhLEyDcYhIXnBuChuuPMuznC1GUMLJ-X6IIp4t6Oq4i26_Lo4G5d7onQ6JhpA/exec';
+
 // ===== STATE =====
 let bookings = [];
 let conversationHistory = [];
@@ -644,18 +599,22 @@ let conversationHistory = [];
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
+  
+  const page = document.getElementById('page-' + id);
+  if(page) page.classList.add('active');
+  
   document.querySelectorAll('.nav-link').forEach(l => {
-    if (l.textContent.includes(
-      {home:'หน้าหลัก',booking:'จองบริการ',chat:'AI',admin:'แอดมิน'}[id] || ''
-    )) l.classList.add('active');
+    const textMap = {home:'หน้าหลัก', booking:'จองบริการ', chat:'AI', admin:'แอดมิน'};
+    if (textMap[id] && l.textContent.includes(textMap[id])) {
+      l.classList.add('active');
+    }
   });
   if (id === 'admin') renderAdminTable();
   window.scrollTo(0, 0);
 }
 
-// ===== BOOKING =====
-function submitBooking() {
+// ===== BOOKING (ระบบส่งข้อมูลจองไป Google Sheets) =====
+async function submitBooking() {
   const name = document.getElementById('fname').value.trim();
   const phone = document.getElementById('fphone').value.trim();
   const service = document.getElementById('fservice').value;
@@ -663,37 +622,59 @@ function submitBooking() {
   const time = document.getElementById('ftime').value;
   const duration = parseFloat(document.getElementById('fduration').value);
   const address = document.getElementById('faddress').value.trim();
+  const note = document.getElementById('fnote').value.trim();
 
   if (!name || !phone || !service || !date || !address) {
-    showToast('⚠️ กรุณากรอกข้อมูลที่จำเป็นให้ครบ');
+    showToast('⚠️ กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบถ้วน');
     return;
   }
 
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ กำลังบันทึกการจอง...';
+
   const price = Math.round(350 * duration);
-  const booking = {
-    id: bookings.length + 1,
-    name, phone, service, date, time, duration, price,
-    address: address.substring(0, 40) + (address.length > 40 ? '...' : ''),
-    note: document.getElementById('fnote').value,
-    status: 'pending',
-    createdAt: new Date().toLocaleTimeString('th-TH')
-  };
+  const bookingData = { name, phone, service, date, time, duration, price, address, note };
 
-  bookings.push(booking);
-  showToast('✅ จองสำเร็จ! ทีมแอดมินจะติดต่อกลับภายใน 15 นาที');
-  
-  // Reset
-  ['fname','fphone','fline','faddress','fnote'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('fservice').value = '';
+  try {
+    // ส่งข้อมูลไปที่ Google Apps Script
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        source: 'website',
+        data: bookingData
+      })
+    });
 
-  setTimeout(() => showPage('admin'), 1500);
+    // แสดงการแจ้งเตือนเมื่อสำเร็จ
+    showToast('✅ จองสำเร็จ! ทีมแอดมินจะติดต่อกลับภายใน 15 นาที');
+    
+    // เคลียร์ค่าในฟอร์ม
+    ['fname','fphone','fline','faddress','fnote'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('fservice').value = '';
+
+    // พาไปหน้าแอดมิน (เอาไว้จำลองให้เห็นข้อมูลว่าเข้าจริง)
+    setTimeout(() => {
+      bookings.push({...bookingData, id: bookings.length + 1, status: 'pending'});
+      showPage('admin');
+      btn.disabled = false;
+      btn.textContent = '📅 ยืนยันการจอง';
+    }, 1500);
+
+  } catch (err) {
+    console.error(err);
+    showToast('⚠️ เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้ง');
+    btn.disabled = false;
+    btn.textContent = '📅 ยืนยันการจอง';
+  }
 }
 
 // ===== ADMIN =====
 function renderAdminTable() {
   const tbody = document.getElementById('bookingTableBody');
   if (bookings.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:32px;">ยังไม่มีการจอง</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:32px;">ยังไม่มีการจอง กดปุ่ม "+ เพิ่มตัวอย่าง" ด้านบน</td></tr>';
     document.getElementById('statTotal').textContent = '0';
     document.getElementById('statPending').textContent = '0';
     document.getElementById('statRevenue').textContent = '0';
@@ -701,8 +682,7 @@ function renderAdminTable() {
     return;
   }
 
-  const statusMap = { pending:'รอยืนยัน', confirmed:'ยืนยันแล้ว', done:'เสร็จสิ้น' };
-  tbody.innerHTML = bookings.map(b => `
+  tbody.innerHTML = bookings.map((b, index) => `
     <tr>
       <td>${b.id}</td>
       <td><strong>${b.name}</strong><br><small style="color:var(--muted)">${b.phone}</small></td>
@@ -712,7 +692,7 @@ function renderAdminTable() {
       <td style="max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${b.address}</td>
       <td><strong>${b.price} บ.</strong></td>
       <td>
-        <select onchange="updateStatus(${b.id-1}, this.value)" style="border:1px solid #ddd;border-radius:6px;padding:4px 8px;font-size:0.82rem;font-family:Sarabun,sans-serif;">
+        <select onchange="updateStatus(${index}, this.value)" style="border:1px solid #ddd;border-radius:6px;padding:4px 8px;font-size:0.82rem;font-family:Sarabun,sans-serif;">
           <option value="pending" ${b.status==='pending'?'selected':''}>รอยืนยัน</option>
           <option value="confirmed" ${b.status==='confirmed'?'selected':''}>ยืนยันแล้ว</option>
           <option value="done" ${b.status==='done'?'selected':''}>เสร็จสิ้น</option>
@@ -735,31 +715,19 @@ function updateStatus(idx, val) {
   showToast('✅ อัปเดตสถานะเรียบร้อย');
 }
 
-const samples = [
-  { name:'สมหญิง ใจดี', phone:'081-234-5678', service:'นวดแก้ออฟฟิศซินโดรม', date:'2026-05-13', time:'18:00', duration:1, address:'บ้านพักซอย 3 ต.พระปฐมเจดีย์', note:'ปวดคอมาก'},
-  { name:'วัลภา สุขสม', phone:'089-876-5432', service:'นวดผ่อนคลายความเครียด', date:'2026-05-14', time:'14:00', duration:1.5, address:'คอนโดไพน์เฮสท์ ห้อง 502', note:''},
-  { name:'ประยูร มั่นคง', phone:'062-111-2233', service:'นวดบำบัดผู้สูงอายุ', date:'2026-05-15', time:'10:00', duration:2, address:'บ้านถนนเพชรเกษม กม.55', note:'ผู้สูงอายุ 72 ปี ปวดเข่า'},
-];
-
 function addSampleBooking() {
+  const samples = [
+    { name:'สมหญิง ใจดี', phone:'081-234-5678', service:'นวดแก้ออฟฟิศซินโดรม', date:'2026-05-13', time:'18:00', duration:1, address:'บ้านพักซอย 3 ต.พระปฐมเจดีย์', note:'ปวดคอมาก'},
+    { name:'วัลภา สุขสม', phone:'089-876-5432', service:'นวดผ่อนคลายความเครียด', date:'2026-05-14', time:'14:00', duration:1.5, address:'คอนโดไพน์เฮสท์ ห้อง 502', note:''},
+  ];
   const s = samples[bookings.length % samples.length];
   const price = Math.round(350 * s.duration);
-  bookings.push({ ...s, id: bookings.length + 1, price, status: 'pending', createdAt: new Date().toLocaleTimeString('th-TH') });
+  bookings.push({ ...s, id: bookings.length + 1, price, status: 'pending' });
   renderAdminTable();
   showToast('✅ เพิ่มตัวอย่างการจองแล้ว');
 }
 
-function exportCSV() {
-  if (bookings.length === 0) { showToast('⚠️ ยังไม่มีข้อมูล'); return; }
-  const header = ['#','ชื่อ','โทร','บริการ','วันที่','เวลา','ราคา','สถานะ'];
-  const rows = bookings.map(b => [b.id, b.name, b.phone, b.service, b.date, b.time, b.price, b.status]);
-  const csv = [header, ...rows].map(r => r.join(',')).join('\n');
-  const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-  a.download = 'kaewta-bookings.csv'; a.click();
-}
-
-// ===== AI CHAT (แก้ไขข้อผิดพลาดไวยากรณ์แล้ว) =====
+// ===== AI CHAT =====
 async function sendChat() {
   const input = document.getElementById('chatInput');
   const text = input.value.trim();
@@ -768,38 +736,45 @@ async function sendChat() {
   input.value = '';
   input.style.height = 'auto';
   addMessage('user', text);
-  document.getElementById('sendBtn').disabled = true;
+  
+  const sendBtn = document.getElementById('sendBtn');
+  sendBtn.disabled = true;
 
   conversationHistory.push({ role: 'user', content: text });
-
-  // แสดงอนิเมชั่นพิมพ์
   const typingId = showTyping();
 
   try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbzzGewMRhhLEyDcYhIXnBuChuuPMuznC1GUMLJ-X6IIp4t6Oq4i26_Lo4G5d7onQ6JhpA/exec', {
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
-      // แนะนำให้ใช้ text/plain เพื่อเลี่ยงการติดปัญหา CORS ตอนรันบน GitHub Pages
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
+        source: 'chat',
         messages: conversationHistory
       })
     });
 
-    const data = await response.json();
+    const textResponse = await response.text();
     removeTyping(typingId);
 
-    // ดึงข้อความตอบกลับ
-    const reply = data.reply || 'ขออภัยค่ะ เกิดข้อผิดพลาด กรุณาติดต่อผ่าน LINE @028wwtbj';
+    let reply = 'ฟังก์ชันแชทต้องมีการตั้งค่า AI ในฝั่ง Google Apps Script เพิ่มเติมค่ะ ตอนนี้คุณสามารถจองนวดผ่านเมนู "จองบริการ" ด้านบนได้เลยนะคะ 🙏';
+    
+    // พยายามแกะ JSON ถ้า backend ตอบกลับมาเป็น JSON
+    try {
+        const data = JSON.parse(textResponse);
+        if(data.reply) reply = data.reply;
+    } catch(e) {
+        console.log("Fallback message shown");
+    }
     
     conversationHistory.push({ role: 'assistant', content: reply });
     addMessage('bot', reply);
 
   } catch (err) {
     removeTyping(typingId);
-    addMessage('bot', 'ขออภัยค่ะ ไม่สามารถเชื่อมต่อได้ในขณะนี้ กรุณาติดต่อผ่าน LINE: @028wwtbj หรือจองผ่านแบบฟอร์มในเว็บไซต์ค่ะ');
+    addMessage('bot', 'ขออภัยค่ะ ไม่สามารถเชื่อมต่อได้ในขณะนี้ กรุณาติดต่อผ่าน LINE: @028wwtbj หรือจองผ่านฟอร์มได้เลยค่ะ');
   }
 
-  document.getElementById('sendBtn').disabled = false;
+  sendBtn.disabled = false;
 }
 
 function sendPrompt(text) {
@@ -838,19 +813,28 @@ function removeTyping(id) {
 // ===== TOAST =====
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg; t.style.display = 'block';
-  setTimeout(() => { t.style.display = 'none'; }, 3000);
+  t.textContent = msg; 
+  t.style.display = 'block';
+  setTimeout(() => { t.style.display = 'none'; }, 3500);
 }
 
 // ===== INIT =====
-// Set min date for booking
-document.getElementById('fdate').min = new Date().toISOString().split('T')[0];
-document.getElementById('fdate').value = new Date().toISOString().split('T')[0];
+// ป้องกัน Error ตอนโหลด DOM ไม่เสร็จ
+window.addEventListener('DOMContentLoaded', () => {
+  const dateInput = document.getElementById('fdate');
+  if(dateInput) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.min = today;
+    dateInput.value = today;
+  }
 
-// Auto-resize textarea
-document.getElementById('chatInput').addEventListener('input', function() {
-  this.style.height = 'auto';
-  this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+  const chatInput = document.getElementById('chatInput');
+  if(chatInput) {
+    chatInput.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+    });
+  }
 });
 </script>
 </body>
