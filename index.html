@@ -759,7 +759,7 @@ function exportCSV() {
   a.download = 'kaewta-bookings.csv'; a.click();
 }
 
-// ===== AI CHAT (เวอร์ชันปรับปรุงสำหรับ GitHub Pages) =====
+// ===== AI CHAT (แก้ไขข้อผิดพลาดไวยากรณ์แล้ว) =====
 async function sendChat() {
   const input = document.getElementById('chatInput');
   const text = input.value.trim();
@@ -775,13 +775,11 @@ async function sendChat() {
   // แสดงอนิเมชั่นพิมพ์
   const typingId = showTyping();
 
-  try {try {
-    // 👇 ลบส่วนที่เป็น setTimeout และ mockReplies ออก
-    // แล้วใช้คำสั่ง fetch เพื่อเรียกไปยัง URL API ของคุณแทน 👇
-    
+  try {
     const response = await fetch('https://script.google.com/macros/s/AKfycbzzGewMRhhLEyDcYhIXnBuChuuPMuznC1GUMLJ-X6IIp4t6Oq4i26_Lo4G5d7onQ6JhpA/exec', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      // แนะนำให้ใช้ text/plain เพื่อเลี่ยงการติดปัญหา CORS ตอนรันบน GitHub Pages
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
         messages: conversationHistory
       })
@@ -790,7 +788,7 @@ async function sendChat() {
     const data = await response.json();
     removeTyping(typingId);
 
-    // ดึงข้อความตอบกลับ (ปรับ 'data.reply' ให้ตรงกับที่ Backend ของคุณตั้งค่าไว้ส่งกลับมา)
+    // ดึงข้อความตอบกลับ
     const reply = data.reply || 'ขออภัยค่ะ เกิดข้อผิดพลาด กรุณาติดต่อผ่าน LINE @028wwtbj';
     
     conversationHistory.push({ role: 'assistant', content: reply });
@@ -799,12 +797,6 @@ async function sendChat() {
   } catch (err) {
     removeTyping(typingId);
     addMessage('bot', 'ขออภัยค่ะ ไม่สามารถเชื่อมต่อได้ในขณะนี้ กรุณาติดต่อผ่าน LINE: @028wwtbj หรือจองผ่านแบบฟอร์มในเว็บไซต์ค่ะ');
-  }});
-    addMessage('bot', reply);
-
-  } catch (err) {
-    removeTyping(typingId);
-    addMessage('bot', 'ขออภัยค่ะ เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาติดต่อผ่าน LINE: @028wwtbj หรือจองผ่านแบบฟอร์มในเว็บไซต์ค่ะ');
   }
 
   document.getElementById('sendBtn').disabled = false;
