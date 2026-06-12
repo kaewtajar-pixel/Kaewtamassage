@@ -79,7 +79,7 @@
     content: '';
     position: absolute; inset: 0;
     background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    pointer-events: none; /* ป้องกันไม่ให้บังการคลิก */
+    pointer-events: none;
   }
   .hero-badge, .hero h1, .hero p, .hero-btns, .hero-features { position: relative; z-index: 2; }
   .hero-badge {
@@ -588,8 +588,11 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// URL ของ Google Apps Script ของคุณ
+// ==========================================
+// ⚠️ สำคัญมาก: เอา URL เวอร์ชันใหม่มาวางที่บรรทัดนี้ 👇
+// ==========================================
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzGewMRhhLEyDcYhIXnBuChuuPMuznC1GUMLJ-X6IIp4t6Oq4i26_Lo4G5d7onQ6JhpA/exec';
+
 
 // ===== STATE =====
 let bookings = [];
@@ -613,7 +616,7 @@ function showPage(id) {
   window.scrollTo(0, 0);
 }
 
-// ===== BOOKING (ระบบส่งข้อมูลจองไป Google Sheets) =====
+// ===== BOOKING =====
 async function submitBooking() {
   const name = document.getElementById('fname').value.trim();
   const phone = document.getElementById('fphone').value.trim();
@@ -637,7 +640,6 @@ async function submitBooking() {
   const bookingData = { name, phone, service, date, time, duration, price, address, note };
 
   try {
-    // ส่งข้อมูลไปที่ Google Apps Script
     await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -647,14 +649,11 @@ async function submitBooking() {
       })
     });
 
-    // แสดงการแจ้งเตือนเมื่อสำเร็จ
     showToast('✅ จองสำเร็จ! ทีมแอดมินจะติดต่อกลับภายใน 15 นาที');
     
-    // เคลียร์ค่าในฟอร์ม
     ['fname','fphone','fline','faddress','fnote'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('fservice').value = '';
 
-    // พาไปหน้าแอดมิน (เอาไว้จำลองให้เห็นข้อมูลว่าเข้าจริง)
     setTimeout(() => {
       bookings.push({...bookingData, id: bookings.length + 1, status: 'pending'});
       showPage('admin');
@@ -756,14 +755,14 @@ async function sendChat() {
     const textResponse = await response.text();
     removeTyping(typingId);
 
-    let reply = 'ฟังก์ชันแชทต้องมีการตั้งค่า AI ในฝั่ง Google Apps Script เพิ่มเติมค่ะ ตอนนี้คุณสามารถจองนวดผ่านเมนู "จองบริการ" ด้านบนได้เลยนะคะ 🙏';
+    // Default Fallback
+    let reply = 'ขออภัยค่ะ ไม่สามารถประมวลผลคำตอบได้ กรุณาติดต่อผ่าน LINE: @028wwtbj นะคะ';
     
-    // พยายามแกะ JSON ถ้า backend ตอบกลับมาเป็น JSON
     try {
         const data = JSON.parse(textResponse);
         if(data.reply) reply = data.reply;
     } catch(e) {
-        console.log("Fallback message shown");
+        console.log("Error parsing JSON:", e);
     }
     
     conversationHistory.push({ role: 'assistant', content: reply });
@@ -819,7 +818,6 @@ function showToast(msg) {
 }
 
 // ===== INIT =====
-// ป้องกัน Error ตอนโหลด DOM ไม่เสร็จ
 window.addEventListener('DOMContentLoaded', () => {
   const dateInput = document.getElementById('fdate');
   if(dateInput) {
@@ -834,9 +832,6 @@ window.addEventListener('DOMContentLoaded', () => {
       this.style.height = 'auto';
       this.style.height = Math.min(this.scrollHeight, 100) + 'px';
     });
-
-    // URL ของ Google Apps Script ของคุณ
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzGewMRhhLEyDcYhIXnBuChuuPMuznC1GUMLJ-X6IIp4t6Oq4i26_Lo4G5d7onQ6JhpA/exec';
   }
 });
 </script>
